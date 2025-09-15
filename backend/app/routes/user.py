@@ -1,12 +1,19 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from app.models.user import UserBase, UserInDB
-from app.database.connection import get_db
 from motor.motor_asyncio import AsyncIOMotorDatabase
 from pymongo.errors import DuplicateKeyError
 
+from app.database.connection import get_db
+from app.models.user import UserBase, UserInDB
+
 router = APIRouter()
 
-@router.post("/", response_model=UserInDB, status_code=status.HTTP_201_CREATED, response_model_by_alias=False)
+
+@router.post(
+    "/",
+    response_model=UserInDB,
+    status_code=status.HTTP_201_CREATED,
+    response_model_by_alias=False,
+)
 async def create_user(user: UserBase, db: AsyncIOMotorDatabase = Depends(get_db)):
     """
     Create a new user.

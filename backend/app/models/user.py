@@ -1,7 +1,9 @@
-from pydantic import BaseModel, EmailStr, Field, ConfigDict
-from pydantic_core import core_schema
-from typing import Optional, Any
+from typing import Any, Optional
+
 from bson import ObjectId
+from pydantic import BaseModel, ConfigDict, EmailStr, Field
+from pydantic_core import core_schema
+
 
 class PyObjectId(ObjectId):
     @classmethod
@@ -38,11 +40,12 @@ class UserBase(BaseModel):
     username: str = Field(...)
     full_name: Optional[str] = None
 
+
 class UserInDB(UserBase):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
 
     model_config = ConfigDict(
         populate_by_name=True,
         arbitrary_types_allowed=True,
-        json_encoders={ObjectId: str} # this is for v1, but we keep it for now
+        json_encoders={ObjectId: str},  # this is for v1, but we keep it for now
     )
