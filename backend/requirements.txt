@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+pymongo[srv]
+motor
+pydantic[email]
+python-dotenv
+
+# Testing
+pytest
+pytest-asyncio
+httpx
