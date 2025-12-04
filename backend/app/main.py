@@ -28,3 +28,11 @@ def read_root():
     Root endpoint to check if the API is running.
     """
     return {"message": "Welcome to the Hero Tutor API!"}
+
+
+@app.get("/health")
+def health_check():
+    """
+    Health check endpoint.
+    """
+    return {"status": "ok"}
